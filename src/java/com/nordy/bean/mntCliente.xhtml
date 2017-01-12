@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                
+   
+                    <h:form style="font-size: 12px; align-content:center ">
+                        
+            <p:growl id="msgs" showDetail="true"/>
+                    <h:panelGrid id="pnlCliente" >
+                        
+                        <h:panelGrid columns="3" >
+                            
+                            <p:outputLabel value="Cedula*:"/>
+                            <p:inputText id="txtCedula" size="12" maxlength="10"  value="#{clienteDialogMB.cliente.cedula}" style="background: #ffff00">
+                                <f:validator validatorId="cedula.validator"/>
+                            </p:inputText>
+                            
+                            <p:commandButton icon="ui-icon-search" action="#{clienteDialogMB.clientesDialog}">
+                                <p:ajax event="dialogReturn" listener="#{clienteDialogMB.cargarCliente}" update="pnlCliente" />
+                            </p:commandButton>
+                            
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nombre*:" />
+                            <p:inputText id="txtNombre" size="50"   value="#{clienteDialogMB.cliente.nombre}" style="background: #ffff00">
+                                <f:validator validatorId="soloLetras.validator"/>
+                                <f:validateLength maximum="48" minimum="1"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Telefono*:" />
+                            <p:inputText id="txtTelefono" size="11"   value="#{clienteDialogMB.cliente.celular}" style="background: #ffff00">
+                                <f:validator validatorId="num_min_max.validator"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Email*:" />
+                            <p:inputText id="txtEmail" size="50"  value="#{clienteDialogMB.cliente.correo}" style="background: #ffff00">
+                                <f:validator validatorId="email.validator"/>
+                                
+                            </p:inputText>
+                            
+                            <p:outputLabel value="Clave*:" />
+                            <p:inputText id="txtClave" size="25" value="#{clienteDialogMB.cliente.contrasenia}" style="background: #ffff00">
+                                <f:validateLength maximum="30"/>
+                            </p:inputText>
+
+                            <p:outputLabel value="Rol:" />
+                            <p:selectOneMenu  id="cmbRol" value="#{clienteDialogMB.cliente.tipo}" style="background: #ffff00">
+                                <f:selectItem itemLabel="Cliente" itemValue="Cliente"/>
+                                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Estado*:" />
+                            <p:selectOneRadio id="rbEstado" value="#{clienteDialogMB.cliente.estado}">
+                                <f:selectItem itemLabel="Activo" itemValue="true" />
+                                <f:selectItem itemLabel="Inactivo" itemValue="false" />
+                            </p:selectOneRadio>
+
+                            <p:outputLabel value="Direccion*:" />
+                            <p:inputTextarea id="txtDireccion" cols="50" rows="3" value="#{clienteDialogMB.cliente.direccion}">
+
+                            </p:inputTextarea>
+                        </h:panelGrid>
+                        
+                        
+                    </h:panelGrid>
+                        <h:commandButton   value="Ingresar" action="#{clienteDialogMB.doGrabar()}"/>
+                        </h:form>
+                
+            
+        
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

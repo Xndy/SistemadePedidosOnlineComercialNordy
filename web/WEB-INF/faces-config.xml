@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    
+<validator>
+        <validator-id>cedula.validator</validator-id>
+        <validator-class>com.nordy.util.Numeros_Letras</validator-class>
+</validator>
+<validator>
+        <validator-id>soloLetras.validator</validator-id>
+        <validator-class>com.nordy.util.validaciones.Letras</validator-class>
+</validator>
+<validator>
+        <validator-id>num_min_max.validator</validator-id>
+        <validator-class>com.nordy.util.validaciones.Numero_Min_Max</validator-class>
+</validator>
+<validator>
+        <validator-id>cantidad.validador</validator-id>
+        <validator-class>com.nordy.util.validaciones.ValidadorCantidad</validator-class>
+</validator>
+<validator>
+        <validator-id>email.validator</validator-id>
+        <validator-class>com.nordy.util.validaciones.ValidadorCorreo</validator-class>
+</validator>
+
+<validator>
+        <validator-id>Telefono.validator</validator-id>
+        <validator-class>com.nordy.util.validaciones.TelefonoValidador</validator-class>
+</validator>
+
+<validator>
+        <validator-id>Clave.validator</validator-id>
+        <validator-class>com.nordy.util.validaciones.ClaveValidador</validator-class>
+</validator>
+<application>
+
+
+
+<action-listener>org.primefaces.application.DialogActionListener</action-listener>
+<navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+<view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+
+
+
+</application>
+
+
+
+</faces-config>

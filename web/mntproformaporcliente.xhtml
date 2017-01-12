@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Detalle del Pedido</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panelGrid columns="1">
+                <p:outputLabel value="Cliente:  #{pedidoDialogMB.proforma.codcliente.nombre}"/>
+                <p:outputLabel value="Fecha de Compra:  #{pedidoDialogMB.proforma.fechaentrega}">
+                    <f:convertDateTime pattern="dd-MMM-yyyy" />
+                </p:outputLabel>
+            </p:panelGrid>
+            <br></br><br></br>
+            <p:dataTable value="#{pedidoDialogMB.detalleProformaListbyProforma}" var="dc">
+                
+                    <p:column headerText="Cod.">
+                        <p:outputLabel value="#{dc.codproductos.idproductos}"/>
+                    </p:column>
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{dc.codproductos.detalle}"/>
+                    </p:column>
+                    <p:column headerText="Cantidad:">
+                        <p:outputLabel value="#{dc.cantidad}"/>
+                    </p:column>
+                    <p:column headerText="P/U">
+                        <p:outputLabel value="#{dc.precioUnitario}"/>
+                    </p:column>
+                    <p:column headerText="P/Total">
+                        <p:outputLabel value="#{dc.precioTotal}"/>
+                    </p:column>
+                </p:dataTable>
+            <br></br><br></br>
+            <p:panelGrid columns="1" style="align-items: baseline">
+            <p:outputLabel value="Descuento: #{pedidoDialogMB.proforma.descuento}"/>
+            <p:outputLabel value="Iva: #{pedidoDialogMB.proforma.iva}"/>
+            <p:outputLabel value="Total: #{pedidoDialogMB.proforma.subtotal}"/>
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

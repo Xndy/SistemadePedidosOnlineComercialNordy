@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        
+        <ui:define name="top">
+               Comercial Nordy 
+                
+        </ui:define>
+            
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <p:growl id="grow1" sticky="true" showDetail="true"/>
+                 <h:form style="background-color: activeborder; background-position: center">
+            
+            
+            <h:panelGrid border="10">
+                <f:facet name="header">PROFORMA</f:facet> 
+                <h:panelGrid>
+                   
+                    <p:panelGrid columns="2">
+                        <h:panelGrid >
+                            <h1 style="color: #f90016;font-style: italic">Comercial Nordy</h1>
+                            <h:outputText value="Direccion: Centro de la ciudad"/>
+                        </h:panelGrid  >
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Fecha:"/>
+                            <h:outputText value="#{pedidoBean.fecha}">
+                                <f:convertDateTime pattern="dd-MMM-yyyy" />
+                            </h:outputText>
+                            <p:outputLabel value="No."/>
+                            <p:outputLabel  value="#{pedidoBean.proforma.idproforma}"/>
+                        </h:panelGrid>
+                        
+                   </p:panelGrid>
+                    <p:outputLabel value="CLIENTE"/>
+                    <h:panelGrid columns="4">
+                        <p:outputLabel value="NOMBRES: "/>
+                        <p:outputLabel value="#{pedidoBean.cliente.nombre}" />
+                        <p:outputLabel value="TELEFONO: "/>
+                        <p:outputLabel value="#{pedidoBean.cliente.celular}"/>
+                        <p:outputLabel value="DIRECCION: "/>
+                        <p:outputLabel value="#{pedidoBean.cliente.direccion}"/>
+                        <p:outputLabel value="CORREO:  "/>
+                        <p:outputLabel value="#{pedidoBean.cliente.correo}"/>
+                        
+                    </h:panelGrid>
+                    
+                    <p:dataTable var="detalle" value="#{detallePedidoBean.detalleCompraList}">
+                        <p:column headerText="Cod." style="width: 35px">
+                            <p:outputLabel value="#{detalle.codproductos.idproductos}"/>
+                        </p:column>
+                        <p:column headerText="Articulo" style="width: 155px" >
+                            <p:outputLabel value="#{detalle.codproductos.codcategoria.descripcion} #{detalle.codproductos.detalle}"/>
+
+                        </p:column>
+                        <p:column headerText="CANT." style="width: 165px">
+                            <p:outputLabel value="#{detalle.cantidad}"/> 
+                            <h:commandButton onchange="true" value="+" action="#{detallePedidoBean.updateIncrementCantidad(detalle)}">
+                                <f:ajax listener="#{pedidoBean.updaTotalPedido}"   />
+                            </h:commandButton>    
+                            <h:commandButton value="-" action="#{detallePedidoBean.updateDeacreaseCantidad(detalle)}">
+                                
+                            </h:commandButton>
+                            <h:commandButton value="x" action="#{detallePedidoBean.deleteDetalle(detalle)}">
+                                
+                            </h:commandButton>
+                        </p:column>
+                        <p:column headerText="P/U"  style="width: 85px">
+                            <p:outputLabel value="#{detalle.precioUnitario}"/>
+                        </p:column>
+                        <p:column headerText="TOTAL" >
+                            <p:outputLabel value="#{detalle.precioTotal}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <h:panelGrid columns="2">
+                        
+                        <p:panelGrid columns="2">
+                            
+                            <h:outputText value="Desc:"/>
+                            <h:outputText value="#{pedidoBean.proforma.descuento}" />
+                            <h:outputText value="Iva:"/>
+                            <h:outputText value="#{pedidoBean.proforma.iva}" />
+                            <h:outputText value="Total a Pagar:"/>
+                            <h:outputText value="#{pedidoBean.proforma.subtotal}" />
+                        </p:panelGrid>
+                            
+                    </h:panelGrid>
+                </h:panelGrid>
+                <h:panelGrid columns="2">
+                    <p:growl id="grow1" sticky="true" showDetail="true"/>
+                    <p:commandButton value="Descargar Pedido" actionListener="#{pedidoReportBean.exportarPDF()}"  style="background: #1e95aa;font-style: italic" ajax="false"/>
+                    
+                </h:panelGrid>
+                
+            </h:panelGrid>
+        </h:form>
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Comercial Nordy - Solicitud de Pedido</title>
+    </h:head>
+   <!-- <f:metadata>
+        <f:viewParam name="cliente" value=""/> 
+    </f:metadata> -->
+
+    <h:body>
+
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <ui:include src="/pages/templateTop.xhtml"/>
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    
+                    <ui:include src="/pages/templateMenu.xhtml"/>
+                    
+                </ui:insert>
+            </div>
+            
+            <div id="content" class="left_content">
+                <ui:insert name="content">
+                    <h:form>
+                       
+                        
+                        <p:carousel  numVisible="1" easing="easeOutBounce" style="width:1130px; height: 455px" >
+                        <h:panelGrid columns="1" style="width:70%; height: 10%;align-items: center" >
+                            <p:graphicImage  url="/imagenes/c.jpg"/> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" style="width:70%; height: 10%;align-items:  center"  >
+                            <p:graphicImage url="/imagenes/h.jpg"/> 
+                        </h:panelGrid>    
+                        </p:carousel>
+                    </h:form>   
+                </ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

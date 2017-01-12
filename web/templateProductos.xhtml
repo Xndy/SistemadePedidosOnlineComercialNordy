@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <f:metadata>
+        <f:viewParam name="categoria" value="#{productoBean.idcategoria}"/>
+        <f:viewParam name="detalle" value="#{productoBean.detallecategoria}"/>
+     </f:metadata>
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form> 
+                    <br></br>
+                    <center>
+                        <p:outputLabel value="#{productoBean.detallecategoria}" style="font-family: sans-serif; font-size: 22px; color: blueviolet"/>
+                    </center>
+                    <br></br><br></br>
+                <p:dataTable var="producto" value="#{productoBean.listProductos}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" 
+                         >
+                    <f:facet name="header">
+                          <p:outputLabel value="#{producto.detalle}"/>
+                    </f:facet>
+                    <p:column headerText="Imagen">
+                        <center>
+                            <p:graphicImage url="/imagenes/collage.jpg" width="40px" height="40px"/>
+                        </center>
+                    </p:column>
+                    <p:column headerText="Color" filterBy="#{producto.color}" filterMatchMode="contains">
+                        <p:outputLabel value="#{producto.color}"/>
+                    </p:column>
+                    <p:column headerText="Talla">
+                        <p:outputLabel value="#{producto.talla}"/>
+                    </p:column> 
+                </p:dataTable>
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

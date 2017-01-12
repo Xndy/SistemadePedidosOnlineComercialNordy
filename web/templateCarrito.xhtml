@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                
+                <h:form id="frmCarrito"> 
+                    
+                    <h:panelGrid columns="2" cellpadding="2">
+                        <h:outputText value="Categoria"/>
+                        <p:selectOneMenu id="cmbCategoria" value="#{categoriaBean.idcategoria}">
+                            <f:selectItem itemLabel="-Seleccione-" itemValue=""  />
+                            <f:selectItems value="#{categoriaBean.categoriaList}" var="categoria" itemValue="#{categoria.idcategoria}" />
+                            <p:ajax  listener="#{categoriaBean.cargarProductosParaCarrito}" event="change" update="tableProductos"  />
+                        </p:selectOneMenu>
+                    </h:panelGrid>    
+                        <br></br>
+                        <p:dataTable id="tableProductos" var="producto" value="#{categoriaBean.productosList}" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" >
+                            <f:facet name="header">
+                                  <p:outputLabel value="#{producto.detalle}"/>
+                            </f:facet>
+                            <p:column headerText="Imagen">
+                                <center>
+                                    <p:graphicImage url="/imagenes/collage.jpg" width="40px" height="40px"/>
+                                </center>
+                            </p:column>    
+                            <p:column headerText="Talla">
+                                <p:outputLabel value="#{producto.talla}"/>
+                            </p:column>
+                            <p:column headerText="Color">
+                                <p:outputLabel value="#{producto.color}"/>
+                            </p:column>
+                            <p:column headerText="Precio">
+                                <p:outputLabel value=" $ #{producto.precio}"/>
+                            </p:column>
+                            <p:column headerText="Stock - Referencialmente Aproximado">
+                                <p:outputLabel value="#{producto.cantidad}"/>
+                            </p:column>
+                            <p:column >
+                                <p:commandButton update=":frmCarrito:agregarCarrito" oncomplete="PF('carritoDialog').show()" value="Agregar Producto">
+                                   <f:setPropertyActionListener value="#{producto}" target="#{productoBean.productos}" />
+                               </p:commandButton>
+                           </p:column>
+                        </p:dataTable>
+                        <br></br>
+                        <center>
+                            <p:commandButton value="Agregar Pedido" actionListener="#{pedidoBean.savePedido()}" action="/templateProformaCliente.xhtml?faces-redirect=true"/>
+                        </center>
+                    
+                    
+                    <p:dialog header="Agregar al Carrito" widgetVar="carritoDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="agregarCarrito" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty productoBean.productos}" columnClasses="label,value">
+                                
+                                <h:outputText value="Codigo del Producto" />
+                                <h:outputText value="#{productoBean.productos.idproductos}" />
+
+                                <h:outputText value="Nombre del Producto" />
+                                <h:outputText value="#{productoBean.productos.detalle}" />
+
+                                <h:outputText value="Precio" />
+                                <h:outputText value="#{productoBean.productos.precio}" />
+
+                                 <h:outputText value="Escriba su Cantidad"/>
+                                 <h:inputText value="#{pedidoBean.detalleCompra.cantidad}" />
+                            
+                            
+                                <h:commandButton value="Aceptar" actionListener="#{pedidoBean.almacenandoDetalle(productoBean.productos)}"/>
+                                <h:commandButton value="Cancelar"/>
+                                
+                            </p:panelGrid>
+                            
+                           
+                            
+                        </p:outputPanel>
+                    </p:dialog>
+ 
+                   
+                    
+                </h:form>
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <h:panelGrid >
+                        <p:outputLabel value=" Nueva Categoria"/>
+                        <p:inputText id="txtDescripcion" size="50" maxlength="49" placeholder="Descripcion" value="#{categoriaBean.categoria.descripcion}">
+                            <f:validator validatorId="soloLetras.validator"/>
+                        </p:inputText>
+                        <h:commandButton  value="Insertar" actionListener="#{categoriaBean.doGrabar}" />
+                        <br></br>
+
+
+                        <p:inputText placeholder="Filtro" value="#{categoriaBean.filtro}">
+                            <p:ajax listener="#{categoriaBean.listaCategoria}" event="keyup"  update="tbCategoria"/>
+                        </p:inputText>
+                        <p:dataTable id="tbCategoria" var="cat" value="#{categoriaBean.listaCategoria}" editable="true" scrollable="true" scrollHeight="150">
+                            <f:facet name="header">
+                                Categorias
+
+
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" listener="#{categoriaBean.actualizar}" update=":form:msgs,tbCategoria" />
+                            <p:ajax event="rowEditCancel" listener="#{categoriaBean.cancelar}" update=":form:msgs" />
+
+                            <p:column headerText="Id">
+                                <h:outputText value="#{cat.idcategoria}"/>
+                            </p:column>
+
+                            <p:column headerText="Descripcion">
+                                <p:cellEditor>
+                                    <f:facet name="output"> <h:outputText value="#{cat.descripcion}" /> </f:facet>
+                                    <f:facet name="input"> <p:inputText value="#{categoriaBean.des}" label="Descripcion" /> </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column>
+                                <p:rowEditor/>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:panelGrid>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:commandButton icon="ui-icon-search" actionListener="#{productoDialogMB.productoDialog}" value="Buscar">
+                        <p:ajax event="dialogReturn" listener="#{productoDialogMB.cargarProducto}" update="frmProducto"/>
+                    </p:commandButton>
+                </h:form>
+                <h:form id="frmProducto">
+                    <p:growl id="msgs" />
+     
+                        <h:panelGrid id="pnlProducto" >
+
+                                <h:panelGrid columns="2">
+                                <p:outputLabel value="Producto:"/>
+                                <p:selectOneMenu id="cmbProducto" value="#{productoDialogMB.idcategoria}">
+                                    <f:selectItems value="#{categoriaBean.cbCategoria}"/>
+                                </p:selectOneMenu>
+                                
+                                <p:outputLabel value="Caracteristica*:"/>
+                                <p:inputText  id="txtdetalle" value="#{productoDialogMB.producto.detalle}" size="50" style="background: #ffff4a">
+                                    <f:validator validatorId="soloLetras.validator"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="Talla*:"/>
+                                <p:inputText id="txtTalla" value="#{productoDialogMB.producto.talla}" size="5" style="background: #ffff4a">
+                                    <f:validator validatorId="soloLetras.validator"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="Color*:"/>
+                                <p:inputText id="txtColor" value="#{productoDialogMB.producto.color}" size="10"  style="background: #ffff4a">
+                                    <f:validator validatorId="soloLetras.validator"/>
+                                </p:inputText>
+
+                                <p:outputLabel value="Stok:"/>
+                                <p:inputText id="txtCantidad" value="#{productoDialogMB.producto.cantidad}" size="10"  style="background: #ffff4a">
+                                    <f:validator validatorId="cantidad.validador"/>
+                                    
+                                </p:inputText>
+
+                                <p:outputLabel value="Precio*:"/>
+                                <p:inputText id="txtPrecio" value="#{productoDialogMB.producto.precio}" size= "15" style="background: #ffff4a">
+                                    <f:validateDoubleRange maximum="300" minimum="1"/>
+                                </p:inputText>
+
+                            </h:panelGrid>
+                            <h:commandButton  value="Grabar" action="#{productoDialogMB.doGrabar()}"/>
+                        </h:panelGrid>
+               </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
